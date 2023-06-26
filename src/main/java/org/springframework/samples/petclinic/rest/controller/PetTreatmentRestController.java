@@ -31,6 +31,7 @@ public class PetTreatmentRestController {
 //Add try catch block to the implemented methods
     @GetMapping("/api/pettreatments")
     public ResponseEntity<Collection<PetTreatment>> getAllPetTreatments(){
+        System.out.println("Get all PetTreatments...");
         try {
             Collection<PetTreatment> petTreatments = (Collection<PetTreatment>) petTreatmentService.findAll();
             if (petTreatments.isEmpty()) {
@@ -59,6 +60,7 @@ public class PetTreatmentRestController {
 
     @PostMapping("/api/pettreatments")
     public ResponseEntity<Void> addPetTreatment(@RequestBody PetTreatment petTreatment){
+        System.out.println(petTreatment);
         try {
             petTreatmentService.save(petTreatment);
             return new ResponseEntity<>(HttpStatus.CREATED);

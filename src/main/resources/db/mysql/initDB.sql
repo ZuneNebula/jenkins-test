@@ -4,7 +4,7 @@ ALTER DATABASE petclinic
   DEFAULT CHARACTER SET utf8
   DEFAULT COLLATE utf8_general_ci;
 
-GRANT ALL PRIVILEGES ON petclinic.* TO pc@localhost IDENTIFIED BY 'pc';
+--GRANT ALL PRIVILEGES ON petclinic.* TO root@localhost IDENTIFIED BY PASSWORD 'mohit2241';
 
 USE petclinic;
 
@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS vets (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   first_name VARCHAR(30),
   last_name VARCHAR(30),
-  INDEX(last_name)
+  INDEX(last_name),
+  is_available BOOLEAN DEFAULT TRUE NOT NULL
 ) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS specialties (
@@ -42,7 +43,8 @@ CREATE TABLE IF NOT EXISTS owners (
   address VARCHAR(255),
   city VARCHAR(80),
   telephone VARCHAR(20),
-  INDEX(last_name)
+  INDEX(last_name),
+  owner_email_address VARCHAR(50)
 ) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS pets (
@@ -80,3 +82,12 @@ CREATE TABLE IF NOT EXISTS roles (
   KEY fk_username_idx (username),
   CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users (username)
 ) engine=InnoDB;
+
+CREATE TABLE IF NOT EXISTS pet_treatment (
+  id  int  PRIMARY KEY,
+  description VARCHAR(255),
+  date  DATE,
+  pet_id int NOT NULL,
+  vet_id  int NOT NULL
+);
+

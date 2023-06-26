@@ -7,12 +7,14 @@ DROP TABLE types IF EXISTS;
 DROP TABLE owners IF EXISTS;
 DROP TABLE roles IF EXISTS;
 DROP TABLE users IF EXISTS;
+DROP TABLE pet_treatment IF EXISTS;
 
 
 CREATE TABLE vets (
   id         INTEGER IDENTITY PRIMARY KEY,
   first_name VARCHAR(30),
-  last_name  VARCHAR(30)
+  last_name  VARCHAR(30),
+  isAvailable BOOLEAN DEFAULT TRUE NOT NULL
 );
 CREATE INDEX vets_last_name ON vets (last_name);
 
@@ -41,7 +43,8 @@ CREATE TABLE owners (
   last_name  VARCHAR_IGNORECASE(30),
   address    VARCHAR(255),
   city       VARCHAR(80),
-  telephone  VARCHAR(20)
+  telephone  VARCHAR(12),
+  ownerEmailAddress VARCHAR(50)
 );
 CREATE INDEX owners_last_name ON owners (last_name);
 
@@ -79,4 +82,11 @@ CREATE TABLE roles (
 );
 ALTER TABLE roles ADD CONSTRAINT fk_username FOREIGN KEY (username) REFERENCES users (username);
 CREATE INDEX fk_username_idx ON roles (username);
-
+--Create pet_treatment table
+CREATE TABLE pet_treatment (
+  id              INTEGER IDENTITY PRIMARY KEY,
+  description        VARCHAR(255),
+  date  DATE,
+    pet_id      INTEGER NOT NULL,
+    vet_id      INTEGER NOT NULL
+);

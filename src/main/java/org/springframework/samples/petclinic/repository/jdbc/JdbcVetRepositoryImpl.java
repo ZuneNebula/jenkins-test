@@ -74,11 +74,10 @@ public class JdbcVetRepositoryImpl implements VetRepository {
     @Override
     public Collection<Vet> findAll() throws DataAccessException {
         List<Vet> vets = new ArrayList<>();
-        // Retrieve the list of all vets.
+//         Retrieve the list of all vets.
         vets.addAll(this.jdbcTemplate.query(
             "SELECT id, first_name, last_name FROM vets ORDER BY last_name,first_name",
             BeanPropertyRowMapper.newInstance(Vet.class)));
-
         // Retrieve the list of all possible specialties.
         final List<Specialty> specialties = this.jdbcTemplate.query(
             "SELECT id, name FROM specialties",
@@ -100,9 +99,10 @@ public class JdbcVetRepositoryImpl implements VetRepository {
                 vet.addSpecialty(specialty);
             }
         }
+
         return vets;
     }
-    
+
 	@Override
 	public Vet findById(int id) throws DataAccessException {
 		Vet vet;
@@ -158,7 +158,7 @@ public class JdbcVetRepositoryImpl implements VetRepository {
 		this.namedParameterJdbcTemplate.update("DELETE FROM vet_specialties WHERE vet_id=:id", params);
 		this.namedParameterJdbcTemplate.update("DELETE FROM vets WHERE id=:id", params);
 	}
-	
+
 	private void updateVetSpecialties(Vet vet) throws DataAccessException {
 		Map<String, Object> params = new HashMap<>();
 		params.put("id", vet.getId());

@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.model;
 
 import jakarta.validation.constraints.Email;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
@@ -42,8 +43,9 @@ public class Owner extends Person {
 
     @Column(name = "owner_email_address")
     @NotEmpty
+    @Length(max = 50)
     @Email(regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
-    private String ownerEmailAddress;
+    private String owner_email_address;
 
     @Column(name = "address")
     @NotEmpty
@@ -110,6 +112,14 @@ public class Owner extends Person {
     public void addPet(Pet pet) {
         getPetsInternal().add(pet);
         pet.setOwner(this);
+    }
+
+    public String getOwner_email_address() {
+        return owner_email_address;
+    }
+
+    public void setOwner_email_address(String owner_email_address) {
+        this.owner_email_address = owner_email_address;
     }
 
     /**

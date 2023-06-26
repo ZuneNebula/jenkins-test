@@ -1,10 +1,7 @@
 package org.springframework.samples.petclinic.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 
 import java.time.LocalDate;
@@ -22,8 +19,10 @@ public class PetTreatment {
     private Integer id;
     private String description;
     @OneToOne
+//    @JoinColumn(name = "pet_id")
     private Pet pet;
     @OneToOne
+//    @JoinColumn(name = "vet_id")
     private Vet vet;
     private LocalDate date;
 

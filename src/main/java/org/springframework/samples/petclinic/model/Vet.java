@@ -39,7 +39,7 @@ public class Vet extends Person {
     @JoinTable(name = "vet_specialties", joinColumns = @JoinColumn(name = "vet_id"),
         inverseJoinColumns = @JoinColumn(name = "specialty_id"))
     private Set<Specialty> specialties;
-
+    private boolean is_available;
     @JsonIgnore
     protected Set<Specialty> getSpecialtiesInternal() {
         if (this.specialties == null) {
@@ -50,6 +50,14 @@ public class Vet extends Person {
 
     protected void setSpecialtiesInternal(Set<Specialty> specialties) {
         this.specialties = specialties;
+    }
+
+    public boolean isIs_available() {
+        return is_available;
+    }
+
+    public void setIs_available(boolean is_available) {
+        this.is_available = is_available;
     }
 
     @XmlElement
@@ -63,9 +71,7 @@ public class Vet extends Person {
         this.specialties = new HashSet<>(specialties);
     }
 
-    public void setSpecialties(Set<Specialty> specialties) {
-        this.specialties = specialties;
-    }
+
 
 
 

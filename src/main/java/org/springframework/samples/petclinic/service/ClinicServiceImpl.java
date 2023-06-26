@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
@@ -34,6 +35,7 @@ import org.springframework.samples.petclinic.repository.PetTypeRepository;
 import org.springframework.samples.petclinic.repository.SpecialtyRepository;
 import org.springframework.samples.petclinic.repository.VetRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
+import org.springframework.samples.petclinic.repository.springdatajpa.VetRepo;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -53,6 +55,7 @@ public class ClinicServiceImpl implements ClinicService {
     private VisitRepository visitRepository;
     private SpecialtyRepository specialtyRepository;
 	private PetTypeRepository petTypeRepository;
+    private VetRepo vetRepo;
 
     @Autowired
      public ClinicServiceImpl(
@@ -61,13 +64,14 @@ public class ClinicServiceImpl implements ClinicService {
     		 OwnerRepository ownerRepository,
     		 VisitRepository visitRepository,
     		 SpecialtyRepository specialtyRepository,
-			 PetTypeRepository petTypeRepository) {
+			 PetTypeRepository petTypeRepository,VetRepo vetRepo) {
         this.petRepository = petRepository;
         this.vetRepository = vetRepository;
         this.ownerRepository = ownerRepository;
         this.visitRepository = visitRepository;
         this.specialtyRepository = specialtyRepository;
 		this.petTypeRepository = petTypeRepository;
+        this.vetRepo=vetRepo;
     }
 
 	@Override
@@ -107,6 +111,9 @@ public class ClinicServiceImpl implements ClinicService {
 		visitRepository.delete(visit);
 	}
 
+    public List getAllVets(){
+        return vetRepo.findAll();
+    }
 	@Override
 	@Transactional(readOnly = true)
 	public Vet findVetById(int id) throws DataAccessException {
@@ -123,6 +130,7 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	@Transactional(readOnly = true)
 	public Collection<Vet> findAllVets() throws DataAccessException {
+        System.out.println(vetRepository.findAll().size());
 		return vetRepository.findAll();
 	}
 
