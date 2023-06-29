@@ -2,6 +2,7 @@ package org.springframework.samples.petclinic.model;
 
 
 import jakarta.persistence.*;
+import net.minidev.json.annotate.JsonIgnore;
 
 
 import java.time.LocalDate;

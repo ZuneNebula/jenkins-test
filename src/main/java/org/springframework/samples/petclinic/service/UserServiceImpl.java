@@ -33,4 +33,18 @@ public class UserServiceImpl implements UserService {
 
         userRepository.save(user);
     }
+
+    @Override
+    public boolean signIn(String username, String password) {
+        User user = userRepository.findById(username).orElse(null);
+        if (user == null) {
+            return false;
+        }
+        return user.getPassword().equals(password);
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findById(username).orElse(null);
+    }
 }
