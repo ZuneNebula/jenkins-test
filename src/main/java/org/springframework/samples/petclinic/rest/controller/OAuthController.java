@@ -61,7 +61,10 @@ public class OAuthController {
         //save user in repo
         try {
             System.out.println("USER:: " + user.toString());
-            this.userService.saveUser(user);
+            if(userService.findByUsername(user.getUsername()) == null)
+            {
+                this.userService.saveUser(user);
+            }
         } catch (Exception var8) {
             PrintStream var10000 = System.out;
             LocalDateTime var10001 = LocalDateTime.now();
