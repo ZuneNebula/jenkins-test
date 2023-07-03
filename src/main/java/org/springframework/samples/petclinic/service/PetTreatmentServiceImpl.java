@@ -18,6 +18,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.LocalDate;
+import java.util.List;
 
 
 @Service
@@ -38,25 +39,65 @@ private static final Logger logger = LoggerFactory.getLogger(PetTreatmentService
     }
 
      @Override
-     public void save(PetTreatment petTreatment) {
+     public PetTreatment save(PetTreatment petTreatment) throws Exception {
 //        Add info message
         logger.info("PetTreatmentServiceImpl: save");
         petTreatment.setTreatmentDate(LocalDate.now());
 //        Use findAllVets method of ClinicService to get all vets
         Iterable<Vet> vets = clinicService.findAllVets();
-//        Iterate over vets and set the vet of the petTreatment to the first vet if isAvailable field is True
-//         Use saveVet method of ClinicService to update the vet status to False
-        for (Vet vet : vets) {
+//        Iterate over vets and set the vet of the petTreatment to the first vet that has the same specialty as the petTreatment
 
-            if (vet.isIs_available() && vet.getSpecialties().toString().contains(petTreatment.getSpeciality())) {
-                petTreatment.setVet(vet);
-                vet.setIs_available(false);
-                clinicService.saveVet(vet);
-                break;
+        List<PetTreatment> petTreatments = petTreatmentRepository.findAll();
+
+        for (Vet vet : vets) {
+            boolean isVetIdAvailableInPetTreatment = false;
+            boolean isCurrentDateAvailableInPetTreatment = false;
+            if ( vet.getSpecialties().toString().contains(petTreatment.getSpeciality())) {
+                //Use findAll method to get all pettreatments and check whether current vetid is available for current date
+
+                if(petTreatments.size()==0){
+                    petTreatment.setVet(vet);
+                    System.out.println(petTreatment);
+                    petTreatmentRepository.save(petTreatment);
+                    return petTreatment;
+                }
+
+                for (PetTreatment petTreatment1 : petTreatments) {
+                    System.out.println(vet.getFirstName());
+                    if (petTreatment1.getVet().getId() == vet.getId()) {
+                        System.out.println("vet id equal");
+                       isVetIdAvailableInPetTreatment = true;
+                       break;
+                    }
+                }
+                if(isVetIdAvailableInPetTreatment){
+                    System.out.println("vet id available");
+                    for (PetTreatment petTreatment1 : petTreatments) {
+                        if (petTreatment1.getVet().getId() == vet.getId() && petTreatment1.getTreatmentDate().equals(LocalDate.now())) {
+                            isCurrentDateAvailableInPetTreatment=true;
+                            System.out.println("current date available");
+                            break;
+                        }
+                    }
+                    if(!isCurrentDateAvailableInPetTreatment){
+                        System.out.println("vet id avail current date not available");
+                        petTreatment.setVet(vet);
+                        System.out.println(petTreatment);
+                        petTreatmentRepository.save(petTreatment);
+                        return petTreatment;
+                    }
+                }
+                else {
+                    System.out.println("vet id not available");
+                    petTreatment.setVet(vet);
+                    System.out.println(petTreatment);
+                    petTreatmentRepository.save(petTreatment);
+                    return petTreatment;
+                }
+
             }
         }
-
-         petTreatmentRepository.save(petTreatment);
+        throw new Exception("No vet available for current date");
      }
 
      @Override

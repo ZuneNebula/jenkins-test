@@ -39,7 +39,7 @@ public class Vet extends Person {
     @JoinTable(name = "vet_specialties", joinColumns = @JoinColumn(name = "vet_id"),
         inverseJoinColumns = @JoinColumn(name = "specialty_id"))
     private Set<Specialty> specialties;
-    private boolean is_available;
+
     @JsonIgnore
     protected Set<Specialty> getSpecialtiesInternal() {
         if (this.specialties == null) {
@@ -52,13 +52,7 @@ public class Vet extends Person {
         this.specialties = specialties;
     }
 
-    public boolean isIs_available() {
-        return is_available;
-    }
 
-    public void setIs_available(boolean is_available) {
-        this.is_available = is_available;
-    }
 
     @XmlElement
     public List<Specialty> getSpecialties() {
@@ -92,7 +86,6 @@ public class Vet extends Person {
     public String toString() {
         return "Vet{" +
             "specialties=" + specialties +
-            ", is_available=" + is_available +
             '}';
     }
 }

@@ -17,7 +17,7 @@ import java.time.LocalDate;
 @Table
 public class PetTreatment {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     private String description;
     @OneToOne

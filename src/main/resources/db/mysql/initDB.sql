@@ -12,8 +12,7 @@ CREATE TABLE IF NOT EXISTS vets (
   id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   first_name VARCHAR(30),
   last_name VARCHAR(30),
-  INDEX(last_name),
-  is_available BOOLEAN DEFAULT TRUE NOT NULL
+  INDEX(last_name)
 ) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS specialties (
@@ -84,7 +83,7 @@ CREATE TABLE IF NOT EXISTS roles (
 ) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS pet_treatment (
-  id  int  PRIMARY KEY,
+  id  int  PRIMARY KEY AUTO_INCREMENT,
   description VARCHAR(255),
   date  DATE,
   pet_id int NOT NULL,

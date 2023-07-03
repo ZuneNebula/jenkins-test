@@ -7,7 +7,7 @@ import org.springframework.samples.petclinic.model.Specialty;
 
 public interface PetTreatmentService {
 
-    void save(PetTreatment petTreatment);
+    PetTreatment save(PetTreatment petTreatment) throws Exception;
     PetTreatment findById(Integer id);
     Iterable<PetTreatment> findAll();
     void update(PetTreatment petTreatment);
