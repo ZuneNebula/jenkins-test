@@ -40,7 +40,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
- * Mostly used as a facade for all Petclinic controllers
+ * Mostly used as a facade for all Pet-clinic controllers
  * Also a placeholder for @Transactional and @Cacheable annotations
  *
  * @author Michael Isvy
@@ -130,7 +130,6 @@ public class ClinicServiceImpl implements ClinicService {
 	@Override
 	@Transactional(readOnly = true)
 	public Collection<Vet> findAllVets() throws DataAccessException {
-        System.out.println(vetRepository.findAll().size());
 		return vetRepository.findAll();
 	}
 
@@ -146,7 +145,9 @@ public class ClinicServiceImpl implements ClinicService {
 		vetRepository.delete(vet);
 	}
 
-	@Override
+
+
+    @Override
 	@Transactional(readOnly = true)
 	public Collection<Owner> findAllOwners() throws DataAccessException {
 		return ownerRepository.findAll();

@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.model.PetTreatment;
+import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.service.PetTreatmentService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 //   Add a PetTreatmentService attribute to the class
 //    Add a constructor to the class that injects the PetTreatmentService attribute
@@ -44,6 +46,8 @@ public class PetTreatmentRestController {
         }
     }
 
+
+
     @GetMapping("/api/pettreatments/{petTreatmentId}")
     public ResponseEntity<PetTreatment> getPetTreatment(@PathVariable("petTreatmentId") int petTreatmentId){
         try {
@@ -59,32 +63,17 @@ public class PetTreatmentRestController {
     }
 
     @PostMapping("/api/pettreatments")
-    public ResponseEntity<Void> addPetTreatment(@RequestBody PetTreatment petTreatment){
+    public ResponseEntity addPetTreatment(@RequestBody PetTreatment petTreatment){
         System.out.println(petTreatment);
         try {
             petTreatmentService.save(petTreatment);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
         catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+            return new ResponseEntity(e.getMessage(),HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PutMapping("/api/pettreatments/{petTreatmentId}")
-    public ResponseEntity<PetTreatment> updatePetTreatment(@PathVariable("petTreatmentId") int petTreatmentId, @RequestBody PetTreatment petTreatment){
-       try {
-              PetTreatment currentPetTreatment = petTreatmentService.findById(petTreatmentId);
-              if (currentPetTreatment == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-              }
-
-              petTreatmentService.save(currentPetTreatment);
-              return new ResponseEntity<>(currentPetTreatment, HttpStatus.OK);
-       }
-         catch (Exception e){
-              return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-         }
-    }
 
     @DeleteMapping("/api/pettreatments/{petTreatmentId}")
     public ResponseEntity<Void> deletePetTreatment(@PathVariable("petTreatmentId") int petTreatmentId){

@@ -17,6 +17,7 @@ import java.time.LocalDate;
 @Table
 public class PetTreatment {
     @Id
+    @GeneratedValue
     private Integer id;
     private String description;
     @OneToOne
@@ -26,8 +27,17 @@ public class PetTreatment {
 //    @JoinColumn(name = "vet_id")
     private Vet vet;
     private LocalDate date;
-
+    @Transient
+    private String speciality;
     public PetTreatment() {
+    }
+
+    public String getSpeciality() {
+        return speciality;
+    }
+
+    public void setSpeciality(String speciality) {
+        this.speciality = speciality;
     }
 
     public PetTreatment(Integer id, String description, Pet pet, Vet vet, LocalDate treatmentDate) {
