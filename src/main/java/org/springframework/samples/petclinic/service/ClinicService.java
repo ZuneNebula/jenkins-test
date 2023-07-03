@@ -52,6 +52,8 @@ public interface ClinicService {
 	void saveVet(Vet vet) throws DataAccessException;
 	void deleteVet(Vet vet) throws DataAccessException;
 
+
+
 	Owner findOwnerById(int id) throws DataAccessException;
 	Collection<Owner> findAllOwners() throws DataAccessException;
 	void saveOwner(Owner owner) throws DataAccessException;

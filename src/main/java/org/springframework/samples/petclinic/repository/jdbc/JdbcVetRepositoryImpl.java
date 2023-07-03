@@ -76,29 +76,29 @@ public class JdbcVetRepositoryImpl implements VetRepository {
         List<Vet> vets = new ArrayList<>();
 //         Retrieve the list of all vets.
         vets.addAll(this.jdbcTemplate.query(
-            "SELECT id, first_name, last_name FROM vets ORDER BY last_name,first_name",
+            "Select vets.id,vets.first_name,vets.last_name,vets.is_available from vets Right Join vet_specialties ON vets.id=vet_specialties.vet_id;",
             BeanPropertyRowMapper.newInstance(Vet.class)));
         // Retrieve the list of all possible specialties.
-        final List<Specialty> specialties = this.jdbcTemplate.query(
-            "SELECT id, name FROM specialties",
-            BeanPropertyRowMapper.newInstance(Specialty.class));
-
-        // Build each vet's list of specialties.
-        for (Vet vet : vets) {
-            final List<Integer> vetSpecialtiesIds = this.jdbcTemplate.query(
-                "SELECT specialty_id FROM vet_specialties WHERE vet_id=?",
-                new BeanPropertyRowMapper<Integer>() {
-                    @Override
-                    public Integer mapRow(ResultSet rs, int row) throws SQLException {
-                        return rs.getInt(1);
-                    }
-                },
-                vet.getId());
-            for (int specialtyId : vetSpecialtiesIds) {
-                Specialty specialty = EntityUtils.getById(specialties, Specialty.class, specialtyId);
-                vet.addSpecialty(specialty);
-            }
-        }
+//        final List<Specialty> specialties = this.jdbcTemplate.query(
+//            "SELECT id, name FROM specialties",
+//            BeanPropertyRowMapper.newInstance(Specialty.class));
+//
+//        // Build each vet's list of specialties.
+//        for (Vet vet : vets) {
+//            final List<Integer> vetSpecialtiesIds = this.jdbcTemplate.query(
+//                "SELECT specialty_id FROM vet_specialties WHERE vet_id=?",
+//                new BeanPropertyRowMapper<Integer>() {
+//                    @Override
+//                    public Integer mapRow(ResultSet rs, int row) throws SQLException {
+//                        return rs.getInt(1);
+//                    }
+//                },
+//                vet.getId());
+//            for (int specialtyId : vetSpecialtiesIds) {
+//                Specialty specialty = EntityUtils.getById(specialties, Specialty.class, specialtyId);
+//                vet.addSpecialty(specialty);
+//            }
+//        }
 
         return vets;
     }

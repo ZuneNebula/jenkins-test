@@ -4,7 +4,6 @@ package org.springframework.samples.petclinic.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.PetTreatment;
 import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.repository.VetRepository;
 import org.springframework.samples.petclinic.repository.springdatajpa.PetTreatmentRepository;
 import org.springframework.stereotype.Service;
 
@@ -44,17 +43,19 @@ private static final Logger logger = LoggerFactory.getLogger(PetTreatmentService
         logger.info("PetTreatmentServiceImpl: save");
         petTreatment.setTreatmentDate(LocalDate.now());
 //        Use findAllVets method of ClinicService to get all vets
-        Iterable<Vet> vets = clinicService.getAllVets();
+        Iterable<Vet> vets = clinicService.findAllVets();
 //        Iterate over vets and set the vet of the petTreatment to the first vet if isAvailable field is True
 //         Use saveVet method of ClinicService to update the vet status to False
         for (Vet vet : vets) {
-            if (vet.isIs_available()) {
+
+            if (vet.isIs_available() && vet.getSpecialties().toString().contains(petTreatment.getSpeciality())) {
                 petTreatment.setVet(vet);
                 vet.setIs_available(false);
                 clinicService.saveVet(vet);
                 break;
             }
         }
+
          petTreatmentRepository.save(petTreatment);
      }
 
@@ -80,8 +81,9 @@ private static final Logger logger = LoggerFactory.getLogger(PetTreatmentService
      }
 
      @Override
-        public Iterable<PetTreatment> findByDate(String date) {
+     public Iterable<PetTreatment> findByDate(String date) {
             return petTreatmentRepository.findByDate(date);
         }
+
 
 }

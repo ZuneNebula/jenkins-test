@@ -39,7 +39,7 @@ import java.util.*;
 @Table(name = "owners")
 public class Owner extends Person {
 
-//    Create field as ownerEmailAddress of type String and implement regex patterns to validate the email address.
+//Create field as ownerEmailAddress of type String and implement regex patterns to validate the email address.
 
     @Column(name = "owner_email_address")
     @NotEmpty

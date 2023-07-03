@@ -9,11 +9,12 @@ INSERT IGNORE INTO specialties VALUES (1, 'radiology');
 INSERT IGNORE INTO specialties VALUES (2, 'surgery');
 INSERT IGNORE INTO specialties VALUES (3, 'dentistry');
 
-INSERT IGNORE INTO vet_specialties VALUES (2, 1);
-INSERT IGNORE INTO vet_specialties VALUES (3, 2);
+INSERT IGNORE INTO vet_specialties VALUES (1, 1);
+INSERT IGNORE INTO vet_specialties VALUES (2, 2);
 INSERT IGNORE INTO vet_specialties VALUES (3, 3);
 INSERT IGNORE INTO vet_specialties VALUES (4, 2);
 INSERT IGNORE INTO vet_specialties VALUES (5, 1);
+INSERT IGNORE INTO vet_specialties VALUES (6, 1);
 
 INSERT IGNORE INTO types VALUES (1, 'cat');
 INSERT IGNORE INTO types VALUES (2, 'dog');
