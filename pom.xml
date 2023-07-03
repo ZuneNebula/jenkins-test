@@ -182,11 +182,16 @@
             <version>0.9.1</version>
         </dependency>
         <!-- add amazon sdk for ses-->
-        <dependency>
-            <groupId>com.amazonaws</groupId>
-            <artifactId>aws-java-sdk-ses</artifactId>
-            <version>1.11.887</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.amazonaws</groupId>-->
+<!--            <artifactId>aws-java-sdk-ses</artifactId>-->
+<!--            <version>1.11.887</version>-->
+<!--        </dependency>-->
+<!--        <dependency>-->
+<!--            <groupId>org.apache.httpcomponents</groupId>-->
+<!--            <artifactId>httpclient</artifactId>-->
+<!--            <version>4.4.1</version>-->
+<!--        </dependency>-->
     </dependencies>
 
     <build>
