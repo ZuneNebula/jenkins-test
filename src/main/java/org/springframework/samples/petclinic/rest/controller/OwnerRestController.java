@@ -94,7 +94,9 @@ public class OwnerRestController implements OwnersApi {
     @Override
     public ResponseEntity<OwnerDto> addOwner(OwnerFieldsDto ownerFieldsDto) {
         HttpHeaders headers = new HttpHeaders();
+        System.out.println(ownerFieldsDto);
         Owner owner = ownerMapper.toOwner(ownerFieldsDto);
+        System.out.println(owner);
         this.clinicService.saveOwner(owner);
         OwnerDto ownerDto = ownerMapper.toOwnerDto(owner);
         headers.setLocation(UriComponentsBuilder.newInstance()

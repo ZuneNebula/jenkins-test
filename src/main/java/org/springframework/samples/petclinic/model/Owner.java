@@ -41,11 +41,19 @@ public class Owner extends Person {
 
 //Create field as ownerEmailAddress of type String and implement regex patterns to validate the email address.
 
-    @Column(name = "owner_email_address")
+    @Column(name = "email")
     @NotEmpty
     @Length(max = 50)
     @Email(regexp = "^[A-Za-z0-9+_.-]+@(.+)$")
-    private String owner_email_address;
+    private String email;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
     @Column(name = "address")
     @NotEmpty
@@ -114,13 +122,6 @@ public class Owner extends Person {
         pet.setOwner(this);
     }
 
-    public String getOwner_email_address() {
-        return owner_email_address;
-    }
-
-    public void setOwner_email_address(String owner_email_address) {
-        this.owner_email_address = owner_email_address;
-    }
 
     /**
      * Return the Pet with the given name, or null if none found for this Owner.
@@ -163,6 +164,7 @@ public class Owner extends Person {
             .append("address", this.address)
             .append("city", this.city)
             .append("telephone", this.telephone)
+            .append("email", this.email)
             .toString();
     }
 }

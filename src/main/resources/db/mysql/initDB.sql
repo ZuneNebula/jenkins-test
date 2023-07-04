@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS owners (
   city VARCHAR(80),
   telephone VARCHAR(20),
   INDEX(last_name),
-  owner_email_address VARCHAR(50)
+  email VARCHAR(50)
 ) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS pets (

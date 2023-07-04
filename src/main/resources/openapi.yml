@@ -1959,6 +1959,10 @@ components:
           maxLength: 20
           pattern: '^[0-9]*$'
           example: '6085551023'
+        email:
+          title: owner email
+          description:  Email of the pet owner.
+          type: string
       required:
         - firstName
         - lastName
