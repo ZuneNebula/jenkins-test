@@ -29,7 +29,57 @@ public class PetTreatment {
     private LocalDate date;
     @Transient
     private String speciality;
+
     public PetTreatment() {
+    }
+
+    public PetTreatment(Integer id, String description, Pet pet, Vet vet, LocalDate date, String speciality) {
+        this.id = id;
+        this.description = description;
+        this.pet = pet;
+        this.vet = vet;
+        this.date = date;
+        this.speciality = speciality;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Pet getPet() {
+        return pet;
+    }
+
+    public void setPet(Pet pet) {
+        this.pet = pet;
+    }
+
+    public Vet getVet() {
+        return vet;
+    }
+
+    public void setVet(Vet vet) {
+        this.vet = vet;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getSpeciality() {
@@ -40,69 +90,10 @@ public class PetTreatment {
         this.speciality = speciality;
     }
 
-    public PetTreatment(Integer id, String description, Pet pet, Vet vet, LocalDate treatmentDate) {
-        this.id = id;
-        this.description = description;
-        this.pet = pet;
-        this.vet = vet;
-        this.date = treatmentDate;
-    }
-
-    public PetTreatment(String description, Pet pet, Vet vet, LocalDate treatmentDate) {
-        this.description = description;
-        this.pet = pet;
-        this.vet = vet;
-        this.date = treatmentDate;
-    }
-
-    public Integer getId() {
-        return this.id;
-    }
-
-    public String getDescription() {
-        return this.description;
-    }
-
-    public Pet getPet() {
-        return this.pet;
-    }
-
-    public Vet getVet() {
-        return this.vet;
-    }
-
-    public LocalDate getTreatmentDate() {
-        return this.date;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-
-    }
-
-    public void setPet(Pet pet) {
-        this.pet = pet;
-
-    }
-
-    public void setVet(Vet vet) {
-        this.vet = vet;
-
-    }
-
-    public void setTreatmentDate(LocalDate treatmentDate) {
-        this.date = treatmentDate;
-
-    }
-
     @Override
     public String toString() {
         return "{" + " id='" + getId() + "'" + ", description='" + getDescription() + "'" + ", pet='" + getPet() + "'"
-                + ", vet='" + getVet() + "'" + ", treatmentDate='" + getTreatmentDate() + "'" + "}";
+                + ", vet='" + getVet() + "'" + ", treatmentDate='" + getDate() + "'" + "}";
     }
 
 }

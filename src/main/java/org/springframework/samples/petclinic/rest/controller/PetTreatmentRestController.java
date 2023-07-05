@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.samples.petclinic.model.PetTreatment;
 import org.springframework.samples.petclinic.model.Specialty;
+import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.service.PetTreatmentService;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ import java.util.List;
 //    Annotate the methods with @GetMapping, @PostMapping, @PutMapping and @DeleteMapping
 //    Annotate the methods with @ResponseStatus
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class PetTreatmentRestController {
 
     private PetTreatmentService petTreatmentService;
@@ -105,6 +107,23 @@ public class PetTreatmentRestController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @GetMapping("/api/pettreatments/vet/{id}")
+    public ResponseEntity getVetInfo(@PathVariable("id") Integer id){
+        try {
+            Vet vet = petTreatmentService.getVetInfo(id);
+            if (vet == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            return new ResponseEntity<>(vet, HttpStatus.OK);
+        }
+        catch (Exception e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+
 
 
 }

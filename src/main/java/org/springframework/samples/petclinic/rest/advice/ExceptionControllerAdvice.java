@@ -42,6 +42,7 @@ public class ExceptionControllerAdvice {
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> exception(Exception e) {
         ObjectMapper mapper = new ObjectMapper();
+        e.printStackTrace();
         ErrorInfo errorInfo = new ErrorInfo(e);
         String respJSONstring = "{}";
         try {
@@ -49,6 +50,7 @@ public class ExceptionControllerAdvice {
         } catch (JsonProcessingException e1) {
             e1.printStackTrace();
         }
+
         return ResponseEntity.badRequest().body(respJSONstring);
     }
 

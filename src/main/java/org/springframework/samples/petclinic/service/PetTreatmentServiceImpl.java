@@ -1,6 +1,7 @@
 package org.springframework.samples.petclinic.service;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.PetTreatment;
 import org.springframework.samples.petclinic.model.Vet;
@@ -42,7 +43,7 @@ private static final Logger logger = LoggerFactory.getLogger(PetTreatmentService
      public PetTreatment save(PetTreatment petTreatment) throws Exception {
 //        Add info message
         logger.info("PetTreatmentServiceImpl: save");
-        petTreatment.setTreatmentDate(LocalDate.now());
+        petTreatment.setDate(LocalDate.now());
 //        Use findAllVets method of ClinicService to get all vets
         Iterable<Vet> vets = clinicService.findAllVets();
 //        Iterate over vets and set the vet of the petTreatment to the first vet that has the same specialty as the petTreatment
@@ -73,7 +74,7 @@ private static final Logger logger = LoggerFactory.getLogger(PetTreatmentService
                 if(isVetIdAvailableInPetTreatment){
                     System.out.println("vet id available");
                     for (PetTreatment petTreatment1 : petTreatments) {
-                        if (petTreatment1.getVet().getId() == vet.getId() && petTreatment1.getTreatmentDate().equals(LocalDate.now())) {
+                        if (petTreatment1.getVet().getId() == vet.getId() && petTreatment1.getDate().equals(LocalDate.now())) {
                             isCurrentDateAvailableInPetTreatment=true;
                             System.out.println("current date available");
                             break;
@@ -125,6 +126,17 @@ private static final Logger logger = LoggerFactory.getLogger(PetTreatmentService
      public Iterable<PetTreatment> findByDate(String date) {
             return petTreatmentRepository.findByDate(date);
         }
+
+    @Override
+    public Vet getVetInfo(Integer id) {
+        String str[]=petTreatmentRepository.getVetInfo(id).split(",");
+        Vet vet1=new Vet();
+        vet1.setId(Integer.parseInt(str[0]));
+        vet1.setFirstName(str[1]);
+        vet1.setLastName(str[2]);
+        return vet1;
+
+    }
 
 
 }
