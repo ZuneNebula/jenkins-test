@@ -1,15 +1,25 @@
-pipeline {
-    agent {
-        docker {
-            image 'maven:3.9.3-eclipse-temurin-11'
-            args '-v /root/.m2:/root/.m2'
-        }
-    }
-    stages {
-        stage('Build') {
-            steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-        }
-    }
+pipeline{
+	agent any
+	tools{
+    	maven 'maven'
+	}
+	stages{
+    	stage('Build Maven'){
+        	steps{
+            	checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/ZuneNebula/jenkins-test']])
+            	sh 'mvn clean install -DskipTests'
+        	}
+    	}
+    	stage('lint'){
+        	steps{
+            	sh 'mvn pmd:check -X'
+        	}
+    	}
+    	stage('test'){
+        	steps{
+            	sh 'mvn clean test --also-make'
+        	}
+       	
+    	}
+	}
 }
